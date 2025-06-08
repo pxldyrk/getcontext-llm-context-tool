@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "codestract"
 version = "0.1.0"
-description = "A lightweight CLI tool for exporting and combining code files into context files"
+description = "A lightweight CLI tool for exporting and combining code files and documents into context files for LLMs"
 readme = "README.md"
 requires-python = ">=3.8"
 license = {file = "LICENSE"}
@@ -26,6 +26,8 @@ classifiers = [
 dependencies = [
     "textual>=0.52.1",
     "rich>=13.7.0",
+    "python-docx>=0.8.11",
+    "openpyxl>=3.1.2",
 ]
 
 [project.optional-dependencies]
@@ -38,6 +40,7 @@ dev = [
 
 [project.scripts]
 codestract = "codestract.app:main"
+xcodestract = "codestract.xcodestract:main"
 
 [tool.black]
 line-length = 100

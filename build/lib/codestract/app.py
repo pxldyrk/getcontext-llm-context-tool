@@ -12,7 +12,7 @@ from textual.widgets import DirectoryTree, Header
 
 from .ui.widgets.file_tree_panel import FileTreePanel
 from .ui.widgets.summary_panel import SummaryPanel
-from .utils.file_utils import is_processable_file
+from .utils.file_utils import is_text_file
 from .utils.logging import setup_logging
 
 
@@ -61,7 +61,7 @@ class FileExportApp(App):
     def handle_file_selected(self, event: DirectoryTree.FileSelected) -> None:
         """Handle file selection in the directory tree."""
         file_path = str(event.path)
-        if not os.path.isfile(file_path) or not is_processable_file(file_path):
+        if not os.path.isfile(file_path) or not is_text_file(file_path):
             return
 
         tree_panel = self.query_one(FileTreePanel)

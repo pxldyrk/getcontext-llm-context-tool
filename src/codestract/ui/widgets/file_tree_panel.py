@@ -11,7 +11,7 @@ from textual.widgets import DirectoryTree, Label
 from textual.widgets.tree import TreeNode
 
 from ...utils.constants import ICONS
-from ...utils.file_utils import is_text_file
+from ...utils.file_utils import is_processable_file
 
 
 class FileTreePanel(Container):
@@ -46,10 +46,10 @@ class FileTreePanel(Container):
         if hasattr(node, "data") and node.data:
             path = str(node.data.path)
             is_selected = path in self.selected_files
-            is_text = is_text_file(path) if os.path.isfile(path) else True
+            is_processable = is_processable_file(path) if os.path.isfile(path) else True
 
-            # Show different styling for non-text files
-            if not is_text and os.path.isfile(path):
+            # Show different styling for non-processable files
+            if not is_processable and os.path.isfile(path):
                 name = os.path.basename(path)
                 node.label = Text.from_markup(f"[dim]⊘ {name}[/]")
             else:
@@ -66,7 +66,7 @@ class FileTreePanel(Container):
         """Recursively select all files in a node and its children."""
         if hasattr(node, "data") and node.data:
             path = str(node.data.path)
-            if os.path.isfile(path) and is_text_file(path):
+            if os.path.isfile(path) and is_processable_file(path):
                 self.selected_files.add(path)
             for child in node.children:
                 self.select_all_in_node(child)

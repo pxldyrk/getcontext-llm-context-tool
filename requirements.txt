@@ -5,3 +5,5 @@ logging
 typing
 textual>=0.52.1
 hatchling>=1.21.1
+python-docx>=0.8.11
+openpyxl>=3.1.2
