@@ -9,7 +9,7 @@ A lightweight CLI tool for exporting and combining code files and documents into
 ## Features
 
 - **Interactive File Selection**: Navigate and select files using an intuitive terminal interface
-- **Document Support**: Process Word documents (*.docx) and Excel spreadsheets (*.xlsx)
+- **Document Support**: Process Word documents (*.docx), Excel spreadsheets (*.xlsx), and PDF files (*.pdf)
 - **Smart File Filtering**: Automatically identifies and filters non-processable files
 - **Text Extraction**: Extracts text content from documents including tables and structured data
 - **Organized Output**: Generates descriptive context files with clear file separators and metadata
@@ -72,7 +72,7 @@ xcodestract [directory_path]
 
 This will:
 - Recursively scan the directory for all processable files
-- Automatically process text files and documents (*.docx, *.xlsx)
+- Automatically process text files and documents (*.docx, *.xlsx, *.pdf)
 - Generate a context file without any user interaction
 - Skip common build/cache directories (node_modules, __pycache__, .git, etc.)
 
@@ -108,6 +108,7 @@ Generated context files are saved in your current directory with:
 - **Documents**: 
   - Word documents (*.docx)
   - Excel spreadsheets (*.xlsx)
+  - PDF files (*.pdf)
 
 ## License
 

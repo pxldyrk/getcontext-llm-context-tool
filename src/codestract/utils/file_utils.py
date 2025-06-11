@@ -23,7 +23,6 @@ def is_text_file(file_path: str) -> bool:
         ".jpeg",
         ".png",
         ".ico",
-        ".pdf",
         ".pyc",
         ".exe",
         ".dll",

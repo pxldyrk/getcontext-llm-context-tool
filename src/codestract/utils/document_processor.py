@@ -9,10 +9,12 @@ from typing import Optional
 try:
     from docx import Document
     from openpyxl import load_workbook
+    import fitz  # PyMuPDF
 except ImportError as e:
     logging.warning(f"Document processing dependencies not available: {e}")
     Document = None
     load_workbook = None
+    fitz = None
 
 
 def extract_text_from_docx(file_path: str) -> Optional[str]:
@@ -116,9 +118,44 @@ def is_document_file(file_path: str) -> bool:
     Returns:
         True if the file is a supported document format
     """
-    DOCUMENT_EXTENSIONS = {".docx", ".xlsx"}
+    DOCUMENT_EXTENSIONS = {".docx", ".xlsx", ".pdf"}
     ext = os.path.splitext(file_path)[1].lower()
     return ext in DOCUMENT_EXTENSIONS
+
+
+def extract_text_from_pdf(file_path: str) -> Optional[str]:
+    """
+    Extract text content from a .pdf file.
+    
+    Args:
+        file_path: Path to the .pdf file
+        
+    Returns:
+        Extracted text content or None if extraction fails
+    """
+    if fitz is None:
+        logging.error("PyMuPDF not available for .pdf processing")
+        return None
+        
+    try:
+        doc = fitz.open(file_path)
+        text_content = []
+        
+        for page_num in range(len(doc)):
+            page = doc.load_page(page_num)
+            text = page.get_text()
+            if text.strip():
+                text_content.append(f"Page {page_num + 1}:")
+                text_content.append("-" * (len(f"Page {page_num + 1}:") + 1))
+                text_content.append(text.strip())
+                text_content.append("")  # Add spacing between pages
+        
+        doc.close()
+        return "\n".join(text_content)
+        
+    except Exception as e:
+        logging.error(f"Error extracting text from {file_path}: {e}")
+        return None
 
 
 def extract_document_content(file_path: str) -> Optional[str]:
@@ -137,6 +174,8 @@ def extract_document_content(file_path: str) -> Optional[str]:
         return extract_text_from_docx(file_path)
     elif ext == ".xlsx":
         return extract_text_from_xlsx(file_path)
+    elif ext == ".pdf":
+        return extract_text_from_pdf(file_path)
     else:
         logging.warning(f"Unsupported document format: {ext}")
         return None 
