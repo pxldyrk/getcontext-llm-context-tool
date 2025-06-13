@@ -7,8 +7,6 @@ import os
 from datetime import datetime
 from typing import Dict, Set
 
-from .utils.document_processor import extract_document_content, is_document_file
-
 
 def calculate_file_stats(files: Set[str]) -> Dict[str, Dict[str, int]]:
     """
@@ -24,26 +22,13 @@ def calculate_file_stats(files: Set[str]) -> Dict[str, Dict[str, int]]:
 
     for file_path in files:
         try:
-            if is_document_file(file_path):
-                # Extract content from document
-                content = extract_document_content(file_path)
-                if content:
-                    stats[file_path] = {
-                        "chars": len(content),
-                        "lines": len(content.splitlines()),
-                        "size": os.path.getsize(file_path),
-                    }
-                else:
-                    stats[file_path] = {"chars": 0, "lines": 0, "size": 0}
-            else:
-                # Regular text file
-                with open(file_path, "r", encoding="utf-8") as f:
-                    content = f.read()
-                    stats[file_path] = {
-                        "chars": len(content),
-                        "lines": len(content.splitlines()),
-                        "size": os.path.getsize(file_path),
-                    }
+            with open(file_path, "r", encoding="utf-8") as f:
+                content = f.read()
+                stats[file_path] = {
+                    "chars": len(content),
+                    "lines": len(content.splitlines()),
+                    "size": os.path.getsize(file_path),
+                }
         except Exception as e:
             logging.error(f"Error reading file {file_path}: {e}")
             stats[file_path] = {"chars": 0, "lines": 0, "size": 0}
@@ -92,34 +77,21 @@ def export_selected_files(selected_files: Set[str]) -> str:
                     continue
 
                 try:
-                    if is_document_file(file_path):
-                        # Extract content from document
-                        contents = extract_document_content(file_path)
-                        if contents is None:
-                            logging.error(f"Failed to extract content from document {file_path}")
-                            skipped_files.append(file_path)
-                            continue
-                        file_type = "Document"
-                    else:
-                        # Regular text file
-                        with open(file_path, "r", encoding="utf-8") as infile:
-                            contents = infile.read()
-                        file_type = "Text File"
+                    with open(file_path, "r", encoding="utf-8") as infile:
+                        contents = infile.read()
+                        file_stats = stats[file_path]
 
-                    file_stats = stats[file_path]
+                        # Write file separator and metadata
+                        outfile.write(f"{'=' * 80}\n")
+                        outfile.write(f"# File: {file_path}\n")
+                        outfile.write(f"# Lines: {file_stats['lines']:,}\n")
+                        outfile.write(f"# Characters: {file_stats['chars']:,}\n")
+                        outfile.write(f"# Size: {file_stats['size']:,} bytes\n")
+                        outfile.write(f"{'=' * 80}\n\n")
 
-                    # Write file separator and metadata
-                    outfile.write(f"{'=' * 80}\n")
-                    outfile.write(f"# File: {file_path}\n")
-                    outfile.write(f"# Type: {file_type}\n")
-                    outfile.write(f"# Lines: {file_stats['lines']:,}\n")
-                    outfile.write(f"# Characters: {file_stats['chars']:,}\n")
-                    outfile.write(f"# Size: {file_stats['size']:,} bytes\n")
-                    outfile.write(f"{'=' * 80}\n\n")
-
-                    # Write file contents
-                    outfile.write(contents)
-                    outfile.write("\n\n")
+                        # Write file contents
+                        outfile.write(contents)
+                        outfile.write("\n\n")
 
                 except Exception as e:
                     logging.error(f"Error reading file {file_path}: {e}")
