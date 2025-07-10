@@ -2,6 +2,7 @@ textual>=0.52.1
 rich>=13.7.0
 python-docx>=0.8.11
 openpyxl>=3.1.2
+PyMuPDF>=1.23.0
 
 [dev]
 black

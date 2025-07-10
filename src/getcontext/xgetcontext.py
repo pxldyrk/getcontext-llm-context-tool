@@ -1,5 +1,5 @@
 """
-xcodestract - Non-interactive CLI tool for extracting and combining files into context files.
+xgetcontext - Non-interactive CLI tool for extracting and combining files into context files.
 Automatically processes all files in a directory recursively.
 """
 
@@ -57,11 +57,11 @@ def find_all_processable_files(directory: str) -> Set[str]:
 
 
 def main() -> None:
-    """Entry point for the xcodestract application."""
+    """Entry point for the xgetcontext application."""
     setup_logging()
 
     if len(sys.argv) != 2:
-        print("Usage: xcodestract [directory_path]")
+        print("Usage: xgetcontext [directory_path]")
         print("Recursively processes all files in the directory and generates a context file.")
         sys.exit(1)
 

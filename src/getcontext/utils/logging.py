@@ -14,13 +14,13 @@ def setup_logging() -> None:
     Sets up logging to both console and a file in the current directory.
     The log file is named with a timestamp for each session.
     """
-    # Create .codestract directory if it doesn't exist
+    # Create .getcontext directory if it doesn't exist
     output_dir = "."
     os.makedirs(output_dir, exist_ok=True)
 
     # Create a timestamped log file name
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    log_file = os.path.join(output_dir, f"codestract_{timestamp}.log")
+    log_file = os.path.join(output_dir, f"getcontext_{timestamp}.log")
 
     # Configure logging format
     log_format = "%(asctime)s - %(levelname)s - %(message)s"

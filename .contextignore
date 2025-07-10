@@ -1,5 +1,5 @@
 ```
-# This is a .contextignore file for the 'codestract' tool.
+# This is a .contextignore file for the 'getcontext' tool.
 # It uses glob patterns, similar to a .gitignore file, to specify files
 # and directories that should be excluded from the context export.
 
@@ -73,11 +73,11 @@ poetry.lock
 package-lock.json
 
 # Ignore a specific directory within your source code
-src/codestract/tests/data/
+src/getcontext/tests/data/
 
 # Ignore all markdown files in the 'docs/internal' directory
 docs/internal/*.md
 ```
-codestract*.txt
+getcontext*.txt
 *.egg-info/
 *__init__.py

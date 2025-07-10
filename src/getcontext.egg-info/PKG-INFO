@@ -1,7 +1,7 @@
 Metadata-Version: 2.4
-Name: codestract
+Name: getcontext
 Version: 0.1.0
-Summary: A lightweight CLI tool for exporting and combining code files into context files
+Summary: A lightweight CLI tool for exporting and combining code files and documents into context files for LLMs
 Author-email: Rishav Kundu <mail@rishav.app>
 License: MIT License
         
@@ -41,6 +41,7 @@ Requires-Dist: textual>=0.52.1
 Requires-Dist: rich>=13.7.0
 Requires-Dist: python-docx>=0.8.11
 Requires-Dist: openpyxl>=3.1.2
+Requires-Dist: PyMuPDF>=1.23.0
 Provides-Extra: dev
 Requires-Dist: black; extra == "dev"
 Requires-Dist: isort; extra == "dev"
@@ -48,18 +49,18 @@ Requires-Dist: mypy; extra == "dev"
 Requires-Dist: pytest; extra == "dev"
 Dynamic: license-file
 
-# Codestract — A lightweight CLI contextfile tool
+# getcontext — A lightweight CLI contextfile tool
 
 A lightweight CLI tool for exporting and combining code files and documents into a single context file, perfect for working with Large Language Models (LLMs).
 
 <div align="center">
-  <img src="/assets/image.webp" alt="codestract-banner" width="1280"/>
+  <img src="/assets/image.webp" alt="getcontext-banner" width="1280"/>
 </div>
 
 ## Features
 
 - **Interactive File Selection**: Navigate and select files using an intuitive terminal interface
-- **Document Support**: Process Word documents (*.docx) and Excel spreadsheets (*.xlsx)
+- **Document Support**: Process Word documents (*.docx), Excel spreadsheets (*.xlsx), and PDF files (*.pdf)
 - **Smart File Filtering**: Automatically identifies and filters non-processable files
 - **Text Extraction**: Extracts text content from documents including tables and structured data
 - **Organized Output**: Generates descriptive context files with clear file separators and metadata
@@ -72,39 +73,39 @@ A lightweight CLI tool for exporting and combining code files and documents into
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/codestract.git
-cd codestract
+git clone https://github.com/yourusername/getcontext.git
+cd getcontext
 
 # Install dependencies
 pip install -r requirements.txt
 
 # Run locally
-python -m codestract [directory_path]
+python -m getcontext [directory_path]
 ```
 
 ### Global Installation
 
-Install the tool globally to use `codestract` from any directory:
+Install the tool globally to use `getcontext` from any directory:
 
 ```bash
 # Clone and install globally
-git clone https://github.com/yourusername/codestract.git
-cd codestract
+git clone https://github.com/yourusername/getcontext.git
+cd getcontext
 pip install -e .
 
 # Now you can run from anywhere
-codestract [directory_path]
+getcontext [directory_path]
 ```
 
 To uninstall:
 
 ```bash
-pip uninstall codestract
+pip uninstall getcontext
 ```
 
 ## Usage
 
-### Interactive Mode (codestract)
+### Interactive Mode (getcontext)
 
 1. Navigate the file tree using arrow keys
 2. Press `Space` to toggle file selection
@@ -112,17 +113,17 @@ pip uninstall codestract
 4. Press `e` to export selected files
 5. Press `q` to quit
 
-### Automatic Mode (xcodestract)
+### Automatic Mode (xgetcontext)
 
 For non-interactive processing of all files in a directory:
 
 ```bash
-xcodestract [directory_path]
+xgetcontext [directory_path]
 ```
 
 This will:
 - Recursively scan the directory for all processable files
-- Automatically process text files and documents (*.docx, *.xlsx)
+- Automatically process text files and documents (*.docx, *.xlsx, *.pdf)
 - Generate a context file without any user interaction
 - Skip common build/cache directories (node_modules, __pycache__, .git, etc.)
 
@@ -158,6 +159,7 @@ Generated context files are saved in your current directory with:
 - **Documents**: 
   - Word documents (*.docx)
   - Excel spreadsheets (*.xlsx)
+  - PDF files (*.pdf)
 
 ## License
 

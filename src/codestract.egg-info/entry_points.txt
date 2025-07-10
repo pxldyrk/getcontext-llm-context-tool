@@ -1,3 +1,0 @@
-[console_scripts]
-codestract = codestract.app:main
-xcodestract = codestract.xcodestract:main

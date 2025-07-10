@@ -1,9 +1,9 @@
-# Codestract — A lightweight CLI contextfile tool
+# getcontext — A lightweight CLI contextfile tool
 
 A lightweight CLI tool for exporting and combining code files and documents into a single context file, perfect for working with Large Language Models (LLMs).
 
 <div align="center">
-  <img src="/assets/image.webp" alt="codestract-banner" width="1280"/>
+  <img src="/assets/image.webp" alt="getcontext-banner" width="1280"/>
 </div>
 
 ## Features
@@ -22,39 +22,39 @@ A lightweight CLI tool for exporting and combining code files and documents into
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/codestract.git
-cd codestract
+git clone https://github.com/yourusername/getcontext.git
+cd getcontext
 
 # Install dependencies
 pip install -r requirements.txt
 
 # Run locally
-python -m codestract [directory_path]
+python -m getcontext [directory_path]
 ```
 
 ### Global Installation
 
-Install the tool globally to use `codestract` from any directory:
+Install the tool globally to use `getcontext` from any directory:
 
 ```bash
 # Clone and install globally
-git clone https://github.com/yourusername/codestract.git
-cd codestract
+git clone https://github.com/yourusername/getcontext.git
+cd getcontext
 pip install -e .
 
 # Now you can run from anywhere
-codestract [directory_path]
+getcontext [directory_path]
 ```
 
 To uninstall:
 
 ```bash
-pip uninstall codestract
+pip uninstall getcontext
 ```
 
 ## Usage
 
-### Interactive Mode (codestract)
+### Interactive Mode (getcontext)
 
 1. Navigate the file tree using arrow keys
 2. Press `Space` to toggle file selection
@@ -62,12 +62,12 @@ pip uninstall codestract
 4. Press `e` to export selected files
 5. Press `q` to quit
 
-### Automatic Mode (xcodestract)
+### Automatic Mode (xgetcontext)
 
 For non-interactive processing of all files in a directory:
 
 ```bash
-xcodestract [directory_path]
+xgetcontext [directory_path]
 ```
 
 This will:

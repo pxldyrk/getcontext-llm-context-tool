@@ -1,0 +1,3 @@
+[console_scripts]
+getcontext = getcontext.app:main
+xgetcontext = getcontext.xgetcontext:main

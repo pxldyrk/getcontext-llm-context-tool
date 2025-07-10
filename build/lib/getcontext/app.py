@@ -1,5 +1,5 @@
 """
-Codestract - A CLI tool for extracting and combining code files.
+getcontext - A CLI tool for extracting and combining code files.
 """
 
 import os
@@ -19,7 +19,7 @@ from .utils.logging import setup_logging
 class FileExportApp(App):
     """Main terminal app for interactively selecting and exporting files."""
 
-    TITLE = "Codestract"
+    TITLE = "getcontext"
     SUB_TITLE = "Select files to generate contextfile"
 
     CSS_PATH = "styles/app.css"
