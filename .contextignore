@@ -1,0 +1,83 @@
+```
+# This is a .contextignore file for the 'codestract' tool.
+# It uses glob patterns, similar to a .gitignore file, to specify files
+# and directories that should be excluded from the context export.
+
+# -----------------------------------------------------------------------------
+# Common Directories to Ignore
+# -----------------------------------------------------------------------------
+
+# Python virtual environments and cache
+__pycache__/
+.venv/
+venv/
+env/
+.mypy_cache/
+
+# Node.js dependencies
+node_modules/
+
+# Build artifacts and distribution folders
+build/
+dist/
+target/
+out/
+
+# Git directory
+.git/
+
+LICENSE
+
+
+# -----------------------------------------------------------------------------
+# File Types to Ignore by Extension
+# -----------------------------------------------------------------------------
+
+# Log files
+*.log
+
+# Local database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Temporary and swap files
+*.tmp
+*.swp
+
+# Compiled Python files
+*.pyc
+
+# Asset files (not useful for code context)
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+*.ico
+*.pdf
+*.mp4
+
+
+# -----------------------------------------------------------------------------
+# Specific Files and Paths to Ignore
+# -----------------------------------------------------------------------------
+
+# Ignore specific configuration or credential files
+local_settings.py
+credentials.json
+.env
+
+# Ignore lock files for package managers
+poetry.lock
+package-lock.json
+
+# Ignore a specific directory within your source code
+src/codestract/tests/data/
+
+# Ignore all markdown files in the 'docs/internal' directory
+docs/internal/*.md
+```
+codestract*.txt
+*.egg-info/
+*__init__.py

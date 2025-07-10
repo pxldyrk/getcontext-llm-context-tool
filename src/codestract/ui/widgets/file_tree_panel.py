@@ -3,7 +3,7 @@ File tree panel widget for displaying and managing the directory structure.
 """
 
 import os
-from typing import Set
+from typing import List, Set
 
 from rich.text import Text
 from textual.containers import Container
@@ -11,16 +11,17 @@ from textual.widgets import DirectoryTree, Label
 from textual.widgets.tree import TreeNode
 
 from ...utils.constants import ICONS
-from ...utils.file_utils import is_processable_file
+from ...utils.file_utils import is_path_ignored, is_processable_file
 
 
 class FileTreePanel(Container):
     """A container widget for the file tree and its header."""
 
-    def __init__(self, start_path: str) -> None:
+    def __init__(self, start_path: str, ignore_patterns: List[str]) -> None:
         """Initialize the file tree panel."""
         super().__init__(id="tree-container")
         self.start_path = start_path
+        self.ignore_patterns = ignore_patterns
         self.selected_files: Set[str] = set()
 
     def compose(self):
@@ -45,16 +46,21 @@ class FileTreePanel(Container):
         """Update icons for a node and its children recursively."""
         if hasattr(node, "data") and node.data:
             path = str(node.data.path)
-            is_selected = path in self.selected_files
-            is_processable = is_processable_file(path) if os.path.isfile(path) else True
+            relative_path = os.path.relpath(path, self.start_path)
+            name = os.path.basename(path)
 
-            # Show different styling for non-processable files
-            if not is_processable and os.path.isfile(path):
-                name = os.path.basename(path)
+            is_selected = path in self.selected_files
+            is_ign = is_path_ignored(relative_path, self.ignore_patterns)
+            is_proc = is_processable_file(path) if os.path.isfile(path) else True
+
+            # Style ignored files/directories first
+            if is_ign:
                 node.label = Text.from_markup(f"[dim]⊘ {name}[/]")
+            # Then non-processable files
+            elif not is_proc and os.path.isfile(path):
+                node.label = Text.from_markup(f"[dim]⊘ {name}[/]")
+            # Then regular files/directories
             else:
-                name = os.path.basename(path)
-                # Only show checkbox for selected items
                 prefix = ICONS["selected"] + " " if is_selected else ""
                 node.label = Text.from_markup(f"{prefix}{name}")
 
@@ -66,10 +72,13 @@ class FileTreePanel(Container):
         """Recursively select all files in a node and its children."""
         if hasattr(node, "data") and node.data:
             path = str(node.data.path)
-            if os.path.isfile(path) and is_processable_file(path):
-                self.selected_files.add(path)
-            for child in node.children:
-                self.select_all_in_node(child)
+            relative_path = os.path.relpath(path, self.start_path)
+            
+            if not is_path_ignored(relative_path, self.ignore_patterns):
+                if os.path.isfile(path) and is_processable_file(path):
+                    self.selected_files.add(path)
+                for child in node.children:
+                    self.select_all_in_node(child)
 
     def get_tree(self) -> DirectoryTree:
         """Get the DirectoryTree widget."""

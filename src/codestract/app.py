@@ -12,7 +12,7 @@ from textual.widgets import DirectoryTree, Header
 
 from .ui.widgets.file_tree_panel import FileTreePanel
 from .ui.widgets.summary_panel import SummaryPanel
-from .utils.file_utils import is_processable_file
+from .utils.file_utils import is_path_ignored, is_processable_file, load_ignore_patterns
 from .utils.logging import setup_logging
 
 
@@ -42,12 +42,13 @@ class FileExportApp(App):
         """Initialize the application with an optional starting path."""
         super().__init__()
         self.start_path = start_path or os.getcwd()
+        self.ignore_patterns = load_ignore_patterns(self.start_path)
         setup_logging()
 
     def compose(self) -> ComposeResult:
         """Create child widgets for the app."""
         yield Header(show_clock=False)
-        yield FileTreePanel(self.start_path)
+        yield FileTreePanel(self.start_path, self.ignore_patterns)
         yield SummaryPanel()
 
     def on_mount(self) -> None:
@@ -61,6 +62,11 @@ class FileExportApp(App):
     def handle_file_selected(self, event: DirectoryTree.FileSelected) -> None:
         """Handle file selection in the directory tree."""
         file_path = str(event.path)
+        relative_path = os.path.relpath(file_path, self.start_path)
+
+        if is_path_ignored(relative_path, self.ignore_patterns):
+            return
+
         if not os.path.isfile(file_path) or not is_processable_file(file_path):
             return
 
@@ -91,7 +97,11 @@ class FileExportApp(App):
             and hasattr(tree.cursor_node, "data")
             and tree.cursor_node.data
         ):
-            tree.select_node(tree.cursor_node)
+            file_path = str(tree.cursor_node.data.path)
+            relative_path = os.path.relpath(file_path, self.start_path)
+
+            if not is_path_ignored(relative_path, self.ignore_patterns):
+                tree.select_node(tree.cursor_node)
 
     def action_export(self) -> None:
         """Export selected files."""
