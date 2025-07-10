@@ -8,13 +8,14 @@ A lightweight CLI tool for exporting and combining code files and documents into
 
 ## Features
 
-- **Interactive File Selection**: Navigate and select files using an intuitive terminal interface
-- **Document Support**: Process Word documents (*.docx), Excel spreadsheets (*.xlsx), and PDF files (*.pdf)
-- **Smart File Filtering**: Automatically identifies and filters non-processable files
-- **Text Extraction**: Extracts text content from documents including tables and structured data
-- **Organized Output**: Generates descriptive context files with clear file separators and metadata
-- **Project Statistics**: Shows real-time statistics about selected files
-- **Native Experience**: Uses platform-native keyboard shortcuts and navigation patterns
+  - **Interactive File Selection**: Navigate and select files using an intuitive terminal interface.
+  - **Custom Ignore Rules**: Use a `.contextignore` file to exclude specific files and directories, similar to `.gitignore`.
+  - **Document Support**: Process Word documents (`*.docx`), Excel spreadsheets (`*.xlsx`), and PDF files (`*.pdf`).
+  - **Smart File Filtering**: Automatically identifies and filters non-processable files.
+  - **Text Extraction**: Extracts text content from documents including tables and structured data.
+  - **Organized Output**: Generates descriptive context files with clear file separators and metadata.
+  - **Project Statistics**: Shows real-time statistics about selected files.
+  - **Native Experience**: Uses platform-native keyboard shortcuts and navigation patterns.
 
 ## Installation
 
@@ -56,11 +57,11 @@ pip uninstall getcontext
 
 ### Interactive Mode (getcontext)
 
-1. Navigate the file tree using arrow keys
-2. Press `Space` to toggle file selection
-3. Use `Enter` to expand/collapse directories
-4. Press `e` to export selected files
-5. Press `q` to quit
+1.  Navigate the file tree using arrow keys.
+2.  Press `Space` to toggle file selection.
+3.  Use `Enter` to expand/collapse directories.
+4.  Press `e` to export selected files.
+5.  Press `q` to quit.
 
 ### Automatic Mode (xgetcontext)
 
@@ -71,10 +72,34 @@ xgetcontext [directory_path]
 ```
 
 This will:
-- Recursively scan the directory for all processable files
-- Automatically process text files and documents (*.docx, *.xlsx, *.pdf)
-- Generate a context file without any user interaction
-- Skip common build/cache directories (node_modules, __pycache__, .git, etc.)
+
+  - Recursively scan the directory for all processable files.
+  - Automatically process text files and documents (`*.docx`, `*.xlsx`, `*.pdf`).
+  - Respect the rules defined in your `.contextignore` file.
+  - Generate a context file without any user interaction.
+  - Skip common build/cache directories (`node_modules`, `__pycache__`, `.git`, etc.).
+
+### Using .contextignore
+
+To exclude specific files or directories from the output, create a `.contextignore` file in the root of your project directory. The tool will automatically detect and apply its rules.
+
+The file uses `.gitignore`-style glob patterns. Lines starting with `#` are treated as comments.
+
+**Example `.contextignore` file:**
+
+```
+# Ignore dependency folders
+node_modules/
+__pycache__/
+
+# Ignore build artifacts
+build/
+dist/
+
+# Ignore log files and environment variables
+*.log
+.env
+```
 
 ### Keyboard Shortcuts
 
@@ -91,25 +116,25 @@ This will:
 
 Generated context files are saved in your current directory with:
 
-- Intuitive naming: `{directory_name}_context_{timestamp}.txt`
-- File metadata and statistics
-- Clear file separators
-- Project summary
+  - Intuitive naming: `{directory_name}_context_{timestamp}.txt`
+  - File metadata and statistics
+  - Clear file separators
+  - Project summary
 
 ## Requirements
 
-- Python 3.8+
-- Terminal with Unicode support
-- For macOS: iTerm2, Kitty, or WezTerm recommended for best experience
+  - Python 3.8+
+  - Terminal with Unicode support
+  - For macOS: iTerm2, Kitty, or WezTerm recommended for best experience
 
 ## Supported File Types
 
-- **Text Files**: All common text-based file formats (code, configuration, etc.)
-- **Documents**: 
-  - Word documents (*.docx)
-  - Excel spreadsheets (*.xlsx)
-  - PDF files (*.pdf)
+  - **Text Files**: All common text-based file formats (code, configuration, etc.)
+  - **Documents**:
+      - Word documents (`*.docx`)
+      - Excel spreadsheets (`*.xlsx`)
+      - PDF files (`*.pdf`)
 
 ## License
 
-[MIT License](LICENSE)
+[MIT License](https://www.google.com/search?q=LICENSE)
