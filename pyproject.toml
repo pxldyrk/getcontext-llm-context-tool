@@ -1,6 +1,6 @@
 [build-system]
-requires = ["setuptools>=45", "wheel"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [project]
 name = "getcontext"
@@ -52,6 +52,5 @@ profile = "black"
 line_length = 100
 multi_line_output = 3
 
-[tool.setuptools]
-packages = ["getcontext"]
-package-dir = {"" = "src"}
+[tool.setuptools.packages.find]
+where = ["src"]

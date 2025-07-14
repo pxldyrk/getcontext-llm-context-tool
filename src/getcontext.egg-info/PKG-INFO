@@ -53,9 +53,9 @@ Dynamic: license-file
 
 A lightweight CLI tool for exporting and combining code files and documents into a single context file, perfect for working with Large Language Models (LLMs).
 
-\<div align="center"\>
-\<img src="/assets/image.webp" alt="getcontext-banner" width="1280"/\>
-\</div\>
+<div align="center">
+  <img src="/assets/image.webp" alt="getcontext-banner" width="1280"/>
+</div>
 
 ## Features
 
